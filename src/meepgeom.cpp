@@ -815,7 +815,7 @@ void geom_epsilon::get_material_pt(material_type &material, const meep::vec &r) 
 
       tp = geom_tree_search(p, restricted_tree, &oi);
       // interpolate and project onto material grid
-      u = tanh_projection(matgrid_val(p, tp, oi, md), md->beta, md->eta + 0.9*p.z);
+      u = tanh_projection(matgrid_val(p, tp, oi, md), md->beta, md->eta + 1.0*p.z);
       // interpolate material from material grid point
       epsilon_material_grid(md, u);
 
@@ -2705,7 +2705,7 @@ void material_grids_addgradient_point(double *v, std::complex<double> fields_a,
     vector3 sz = mg->grid_size;
     double *vcur = v;
     double *ucur = mg->weights;
-    uval = tanh_projection(material_grid_val(p, mg), mg->beta, mg->eta + 0.9*p.z);
+    uval = tanh_projection(material_grid_val(p, mg), mg->beta, mg->eta + 1.0*p.z);
     add_interpolate_weights(p.x, p.y, p.z, vcur, sz.x, sz.y, sz.z, 1,
                             get_material_gradient(uval, fields_a, fields_f, freq, mg, field_dir) *
                                 scalegrad,
